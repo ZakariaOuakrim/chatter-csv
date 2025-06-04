@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.zakaria.projectmanagement.controllers.RFIController"
+      style="-fx-background-color: #163b61;" spacing="10">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER">
+        <Label text="Request For Information (RFI)" style="-fx-text-fill: #f6d22c;">
+            <font>
+                <Font name="Arial" size="24.0" />
+            </font>
+        </Label>
+    </HBox>
+    
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            
+            <!-- Project Name -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Project Name:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="projectNameField" promptText="Enter Project Name" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <!-- Deadline -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Deadline for Response:" style="-fx-text-fill: white;" minWidth="150"/>
+                <DatePicker fx:id="deadlinePicker" promptText="Select Deadline" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            
+            <!-- Overview -->
+            <VBox spacing="5">
+                <Label text="Short Overview:" style="-fx-text-fill: white;"/>
+                <TextArea fx:id="overviewArea" promptText="Provide a short overview of this RFI" prefHeight="100"/>
+            </VBox>
+            
+            <!-- Cost Variation -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Cost Variation:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="costVariationComboBox" promptText="Select Cost Impact" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            
+            <!-- Time Change -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Change in Time:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="timeChangeComboBox" promptText="Select Time Impact" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            
+            <!-- Request/Clarification -->
+            <VBox spacing="5">
+                <Label text="Request/Clarification Required:" style="-fx-text-fill: white;"/>
+                <TextArea fx:id="requestArea" promptText="Describe what information is being requested" prefHeight="150"/>
+            </VBox>
+            
+            <!-- Requesting Party -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Requesting Party:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="requestingPartyField" promptText="Enter Requesting Party" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </ScrollPane>
+    
+    <!-- Buttons -->
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Back" onAction="#handleBackButton" styleClass="action-button"/>
+        <Button text="Generate RFI" onAction="#handleGenerateButton" styleClass="action-button"/>
+    </HBox>
+</VBox>

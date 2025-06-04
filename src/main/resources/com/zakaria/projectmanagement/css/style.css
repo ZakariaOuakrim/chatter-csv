@@ -1,0 +1,90 @@
+/* Rename this file to styles.css or update the references in MainController.java */
+.home-button {
+    -fx-background-radius: 15;
+    -fx-border-color: #697d93;
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+    -fx-cursor: hand;
+    -fx-padding: 20px;
+}
+
+.rfc-button {
+    -fx-background-color: #f6d22c;
+    -fx-text-fill: #163b61;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.rfi-button {
+    -fx-background-color: #f6d22c;
+    -fx-text-fill: #163b61;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.home-button:hover {
+    -fx-background-color: derive(#f6d22c, -10%);
+}
+
+.action-button {
+    -fx-background-color: #f6d22c;
+    -fx-text-fill: #163b61;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: derive(#f6d22c, -10%);
+}
+
+.text-field, .text-area, .combo-box {
+    -fx-background-color: #243444;
+    -fx-text-fill: white;
+    -fx-border-color: #697d93;
+    -fx-border-width: 1;
+}
+
+.text-area .content {
+    -fx-background-color: #243444;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #243444;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #243444;
+    -fx-border-color: #697d93;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #697d93;
+}
+
+.date-picker .text-field {
+    -fx-background-color: #243444;
+    -fx-text-fill: white;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #697d93;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #243444;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #697d93;
+}

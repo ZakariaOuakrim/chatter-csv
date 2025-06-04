@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.zakaria.projectmanagement.controllers.RFCController"
+      style="-fx-background-color: #163b61;" spacing="10">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER">
+        <Label text="Request For Change (RFC)" style="-fx-text-fill: #f6d22c;">
+            <font>
+                <Font name="Arial" size="24.0" />
+            </font>
+        </Label>
+    </HBox>
+    
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            
+            <!-- RFC Type -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="RFC Type:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="rfcTypeComboBox" promptText="Select RFC Type" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            
+            <!-- Area of Application -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Area of Application:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="areaComboBox" promptText="Select Area" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            
+            <!-- Project Code -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Project Code:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="projectCodeField" promptText="Enter Project Code" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <!-- City -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="City:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="cityComboBox" promptText="Select City" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+            
+            <!-- Initiator -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Initiator:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="initiatorField" promptText="Enter Initiator Name" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <!-- Email -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Email:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="emailField" promptText="Enter Email Address" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <!-- Phone -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Phone:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="phoneField" promptText="Enter Phone Number" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <!-- Title -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Title:" style="-fx-text-fill: white;" minWidth="150"/>
+                <TextField fx:id="titleField" promptText="Enter RFC Title" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <!-- Initial Scope -->
+            <VBox spacing="5">
+                <Label text="Initial Scope or Situation:" style="-fx-text-fill: white;"/>
+                <TextArea fx:id="initialScopeArea" promptText="Describe the initial scope or situation" prefHeight="100"/>
+            </VBox>
+            
+            <!-- Background -->
+            <VBox spacing="5">
+                <Label text="Background Justification:" style="-fx-text-fill: white;"/>
+                <TextArea fx:id="backgroundArea" promptText="Provide background and justification" prefHeight="100"/>
+            </VBox>
+            
+            <!-- Proposed Change -->
+            <VBox spacing="5">
+                <Label text="Proposed Change:" style="-fx-text-fill: white;"/>
+                <TextArea fx:id="proposedChangeArea" promptText="Describe the proposed change" prefHeight="100"/>
+            </VBox>
+            
+            <!-- Impact Areas Section -->
+            <Label text="Impact Areas:" style="-fx-text-fill: #f6d22c;">
+                <font>
+                    <Font name="Arial" size="16.0" />
+                </font>
+            </Label>
+            
+            <!-- Design Impact -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Design Impact:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="designImpactComboBox" promptText="Select" prefWidth="100"/>
+                <TextField fx:id="designImpactField" promptText="Describe design impact" HBox.hgrow="ALWAYS" disable="true"/>
+            </HBox>
+            
+            <!-- Permit/Administrative Impact -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Permit Impact:" style="-fx-text-fill: white;" minWidth="150"/>
+                <ComboBox fx:id="permitImpactComboBox" promptText="Select" prefWidth="100"/>
+                <TextField fx:id="permitImpactField" promptText="Describe permit impact" HBox.hgrow="ALWAYS" disable="true"/>
+            </HBox>
+            
+            <!-- Attachments -->
+            <VBox spacing="5">
+                <Label text="Attachments:" style="-fx-text-fill: white;"/>
+                <TextArea fx:id="attachmentsArea" promptText="List any attachments" prefHeight="80"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+    
+    <!-- Buttons -->
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Back" onAction="#handleBackButton" styleClass="action-button"/>
+        <Button text="Generate RFC" onAction="#handleGenerateButton" styleClass="action-button"/>
+    </HBox>
+</VBox>
