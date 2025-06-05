@@ -11,6 +11,8 @@ class FileWatcher:
     def scan_directory(self):
         # Get current files
         current_files = {}
+        changes_detected = False
+        
         try:
             for entry in os.scandir(self.directory):
                 if entry.is_file():
@@ -18,26 +20,36 @@ class FileWatcher:
         except FileNotFoundError:
             print(f"Directory {self.directory} not found. Creating it...")
             os.makedirs(self.directory, exist_ok=True)
-            return
+            return False
             
         # Check for new and modified files
         for filename, mtime in current_files.items():
             if filename not in self.files:
                 print(f"File created: {filename}")
+                changes_detected = True
             elif mtime != self.files[filename]:
                 print(f"File modified: {filename}")
+                changes_detected = True
                 
         # Check for deleted files
         for filename in list(self.files.keys()):
             if filename not in current_files:
                 print(f"File deleted: {filename}")
+                changes_detected = True
                 
         # Update our file list
         self.files = current_files
         
+        # Flush stdout to ensure immediate output
+        if changes_detected:
+            sys.stdout.flush()
+            
+        return changes_detected
+        
     def watch(self, interval=1.0):
         print(f"Watching directory: {self.directory}")
         print("Press Ctrl+C to stop")
+        sys.stdout.flush()  # Ensure the initial messages are displayed immediately
         
         # Initial scan
         self.scan_directory()
@@ -55,6 +67,14 @@ if __name__ == "__main__":
     
     # Create the directory if it doesn't exist
     Path(watch_dir).mkdir(exist_ok=True)
+    
+    # Set stdout to unbuffered mode
+    if sys.version_info.major >= 3:
+        # Python 3.x - use line buffering
+        sys.stdout.reconfigure(line_buffering=True)  # Python 3.7+
+    else:
+        # Python 2.x - use unbuffered output
+        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
     
     watcher = FileWatcher(watch_dir)
     watcher.watch()
