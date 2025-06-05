@@ -3,6 +3,7 @@ package com.zakaria.projectmanagement;
 import com.zakaria.projectmanagement.controllers.HomeController;
 import com.zakaria.projectmanagement.controllers.RFCController;
 import com.zakaria.projectmanagement.controllers.RFIController;
+import com.zakaria.projectmanagement.utils.EnvLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -28,6 +29,9 @@ public class MainController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Load environment variables at application startup
+        EnvLoader.load();
+        
         this.primaryStage = primaryStage;
         primaryStage.setTitle("RFC/RFI Generator");
 

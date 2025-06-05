@@ -1,6 +1,7 @@
 package com.zakaria.projectmanagement.controllers;
 
 import com.zakaria.projectmanagement.MainController;
+import com.zakaria.projectmanagement.services.EmailService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.*;
+
+import javax.mail.MessagingException;
 
 public class RFIController {
     @FXML private TextField projectNameField;
@@ -64,12 +67,34 @@ public class RFIController {
                     // Generate the RFI document
                     File generatedFile = generateRFIDocument(outputDir);
                     
-                    // Show success alert
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("RFI Generated");
-                    alert.setHeaderText("RFI Document Created Successfully");
-                    alert.setContentText("The RFI document has been saved to:\n" + generatedFile.getAbsolutePath());
-                    alert.showAndWait();
+                    // Send email with attachment
+                    try {
+                        String subject = "New RFI Document: " + projectNameField.getText();
+                        String body = "Please find attached the RFI document for project: " + projectNameField.getText() + 
+                                     "\n\nRequesting Party: " + requestingPartyField.getText() +
+                                     "\nDeadline: " + deadlinePicker.getValue().toString();
+                        
+                        EmailService.sendEmailWithAttachment(generatedFile, subject, body);
+                        
+                        // Add email sent confirmation to success message
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("RFI Generated");
+                        alert.setHeaderText("RFI Document Created Successfully");
+                        alert.setContentText("The RFI document has been saved to:\n" + 
+                                             generatedFile.getAbsolutePath() + 
+                                             "\n\nAn email with the document has been sent to adilmoukhlik@gmail.com");
+                        alert.showAndWait();
+                    } catch (MessagingException e) {
+                        // Email failed but file was generated
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("RFI Generated - Email Failed");
+                        alert.setHeaderText("RFI Document Created Successfully");
+                        alert.setContentText("The RFI document has been saved to:\n" + 
+                                             generatedFile.getAbsolutePath() + 
+                                             "\n\nHowever, sending the email failed: " + e.getMessage());
+                        alert.showAndWait();
+                        e.printStackTrace();
+                    }
                     
                     // Return to home screen
                     mainController.showHomeScene();
@@ -128,7 +153,7 @@ public class RFIController {
             cell.setCellValue("R"); // Wingdings 2 checkmark
             cell.setCellStyle(checkmarkStyle);
         } else if ("Cost Increase".equals(costVariation)) {
-            Cell cell = getOrCreateCell(sheet, 8, 0); // A9
+             Cell cell = getOrCreateCell(sheet, 8, 0); // A9
             cell.setCellValue("R"); // Wingdings 2 checkmark
             cell.setCellStyle(checkmarkStyle);
         } else if ("Cost Decrease".equals(costVariation)) {

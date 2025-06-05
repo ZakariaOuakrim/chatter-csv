@@ -1,6 +1,7 @@
 package com.zakaria.projectmanagement.controllers;
 
 import com.zakaria.projectmanagement.MainController;
+import com.zakaria.projectmanagement.services.EmailService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,6 +19,7 @@ import org.apache.poi.ss.usermodel.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.mail.MessagingException;
 
 public class RFCController {
     @FXML private ComboBox<String> rfcTypeComboBox;
@@ -112,12 +114,34 @@ public class RFCController {
                     // Generate the RFC document
                     File generatedFile = generateRFCDocument(outputDir);
                     
-                    // Show success alert
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("RFC Generated");
-                    alert.setHeaderText("RFC Document Created Successfully");
-                    alert.setContentText("The RFC document has been saved to:\n" + generatedFile.getAbsolutePath());
-                    alert.showAndWait();
+                    // Send email with attachment
+                    try {
+                        String subject = "New RFC Document: " + titleField.getText();
+                        String body = "Please find attached the RFC document for project code: " + projectCodeField.getText() + 
+                                     "\n\nInitiator: " + initiatorField.getText() +
+                                     "\nTitle: " + titleField.getText();
+                        
+                        EmailService.sendEmailWithAttachment(generatedFile, subject, body);
+                        
+                        // Add email sent confirmation to success message
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("RFC Generated");
+                        alert.setHeaderText("RFC Document Created Successfully");
+                        alert.setContentText("The RFC document has been saved to:\n" + 
+                                             generatedFile.getAbsolutePath() + 
+                                             "\n\nAn email with the document has been sent to adilmoukhlik@gmail.com");
+                        alert.showAndWait();
+                    } catch (MessagingException e) {
+                        // Email failed but file was generated
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("RFC Generated - Email Failed");
+                        alert.setHeaderText("RFC Document Created Successfully");
+                        alert.setContentText("The RFC document has been saved to:\n" + 
+                                             generatedFile.getAbsolutePath() + 
+                                             "\n\nHowever, sending the email failed: " + e.getMessage());
+                        alert.showAndWait();
+                        e.printStackTrace();
+                    }
                     
                     // Return to home screen
                     mainController.showHomeScene();
