@@ -1,0 +1,19 @@
+.user-message {
+    -fx-background-color: #0084ff;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+}
+
+.bot-message {
+    -fx-background-color: #e9e9eb;
+    -fx-background-radius: 15;
+    -fx-text-fill: black;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
